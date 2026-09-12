@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Local Bilibili and Douyu live stream alerts"
+    />
+    <title>Live On Air</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <span class="eyebrow">Live monitor</span>
+          <h1>Live On Air</h1>
+        </div>
+        <button id="check" class="secondary">Check now</button>
+      </header>
+      <section class="panel">
+        <form id="add">
+          <label>
+            Platform
+            <select id="platform">
+              <option value="bilibili">Bilibili</option>
+              <option value="douyu">Douyu</option>
+            </select>
+          </label>
+          <label class="wide">
+            Room URL or ID
+            <input id="room" placeholder="https://live.bilibili.com/6" />
+          </label>
+          <label class="wide">
+            Display name
+            <input id="label" placeholder="Optional" maxlength="80" />
+          </label>
+          <button>Add room</button>
+        </form>
+      </section>
+      <section class="settings panel">
+        <label>
+          Poll every
+          <input id="interval" type="number" min="1" max="120" step="1" />
+        </label>
+        <label class="check">
+          <input id="desktop" type="checkbox" />
+          Desktop alerts
+        </label>
+        <label class="check">
+          <input id="phone" type="checkbox" />
+          Phone alerts through ntfy
+        </label>
+        <label class="wide">
+          ntfy topic
+          <input id="topic" placeholder="for example ak-live-alerts" />
+        </label>
+        <button id="save" type="button">Save settings</button>
+        <button id="test-phone" type="button" class="secondary">
+          Test phone
+        </button>
+      </section>
+      <p id="status" role="status" aria-live="polite"></p>
+      <section id="list" class="rooms"></section>
+      <footer>Local desktop alerts. Optional phone alerts use ntfy.sh.</footer>
+    </main>
+    <script src="core.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

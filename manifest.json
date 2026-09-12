@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Live On Air · Stream Alerts",
+  "version": "0.1.0",
+  "description": "Get desktop and optional phone alerts when Bilibili or Douyu rooms go live.",
+  "permissions": ["alarms", "notifications", "storage"],
+  "icons": { "128": "icon.png" },
+  "host_permissions": [
+    "https://api.live.bilibili.com/*",
+    "https://www.douyu.com/*",
+    "https://ntfy.sh/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "Live On Air", "default_popup": "popup.html" },
+  "options_page": "popup.html"
+}
