@@ -20,5 +20,11 @@ test("popup CSS avoids viewport-width sizing that can collapse Edge popups", () 
 test("popup CSS uses an internal scrolling shell for mouse-wheel scrolling", () => {
   assert.match(css, /\.scroll-shell\s*{/);
   assert.match(css, /overflow-y:\s*auto/);
-  assert.match(css, /height:\s*calc\(var\(--popup-height\) - 114px\)/);
+  assert.match(css, /flex:\s*1/);
+});
+
+test("popup CSS draws a rounded outer app frame", () => {
+  assert.match(css, /\.app-frame\s*{/);
+  assert.match(css, /border-radius:\s*30px/);
+  assert.match(css, /overflow:\s*hidden/);
 });

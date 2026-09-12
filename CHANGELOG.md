@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4 - 2026-09-12
+
+- Added a single rounded outer app frame around the whole popup.
+- Moved the scrollbar inside the rounded frame so the outer edge looks cleaner.
+- Kept the fixed popup sizing and Chinese interface from v0.1.3.
+
 ## 0.1.3 - 2026-09-12
 
 - Switched the extension popup interface to Chinese.
