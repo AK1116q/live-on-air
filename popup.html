@@ -23,12 +23,43 @@
         <div class="scroll-shell">
           <section class="panel">
             <form id="add">
-              <label>
+              <label class="wide">
                 平台
-                <select id="platform">
-                  <option value="bilibili">哔哩哔哩</option>
-                  <option value="douyu">斗鱼</option>
-                </select>
+                <div
+                  class="platform-picker"
+                  role="radiogroup"
+                  aria-label="平台"
+                >
+                  <input
+                    id="platform-bilibili"
+                    class="platform-radio"
+                    type="radio"
+                    name="platform"
+                    value="bilibili"
+                    checked
+                  />
+                  <label
+                    class="platform-option"
+                    data-platform="bilibili"
+                    for="platform-bilibili"
+                  >
+                    哔哩哔哩
+                  </label>
+                  <input
+                    id="platform-douyu"
+                    class="platform-radio"
+                    type="radio"
+                    name="platform"
+                    value="douyu"
+                  />
+                  <label
+                    class="platform-option"
+                    data-platform="douyu"
+                    for="platform-douyu"
+                  >
+                    斗鱼
+                  </label>
+                </div>
               </label>
               <label class="wide">
                 房间链接或 ID

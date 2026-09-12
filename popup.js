@@ -93,7 +93,7 @@ $("add").onsubmit = async (event) => {
     status("正在添加前检查房间...");
     await send({
       type: "add",
-      platform: $("platform").value,
+      platform: document.querySelector('input[name="platform"]:checked').value,
       input: $("room").value,
       label: $("label").value,
     });

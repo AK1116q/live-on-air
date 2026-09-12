@@ -28,3 +28,9 @@ test("popup CSS draws a rounded outer app frame", () => {
   assert.match(css, /border-radius:\s*30px/);
   assert.match(css, /overflow:\s*hidden/);
 });
+
+test("popup CSS styles the custom platform picker instead of relying on native menus", () => {
+  assert.match(css, /\.platform-picker\s*{/);
+  assert.match(css, /\.platform-radio:checked \+ \.platform-option\s*{/);
+  assert.doesNotMatch(css, /\.platform-option\.active/);
+});

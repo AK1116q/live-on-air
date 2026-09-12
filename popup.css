@@ -139,6 +139,46 @@ select {
   min-height: 38px;
   padding: 9px 10px;
 }
+.platform-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  padding: 5px;
+}
+.platform-radio {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.platform-option {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  min-height: 40px;
+  border-color: transparent;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 750;
+}
+.platform-option:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-color: transparent;
+  color: var(--text);
+}
+.platform-radio:checked + .platform-option {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 30%, transparent);
+}
 .check {
   align-items: center;
   display: flex;
@@ -184,6 +224,7 @@ button:disabled {
   border-color: var(--accent);
   color: var(--text);
 }
+.platform-radio:focus-visible + .platform-option,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {

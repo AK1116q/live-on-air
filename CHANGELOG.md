@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.5 - 2026-09-12
+
+- Replaced the native platform dropdown with a rounded two-choice picker.
+- Removed the visual mismatch caused by the browser-rendered select menu.
+- Kept keyboard-readable radio semantics for the custom platform control.
+
 ## 0.1.4 - 2026-09-12
 
 - Added a single rounded outer app frame around the whole popup.

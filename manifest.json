@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Live On Air · Stream Alerts",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "哔哩哔哩和斗鱼开播提醒，支持桌面提醒和可选手机提醒。",
   "permissions": ["alarms", "notifications", "storage"],
   "icons": { "128": "icon.png" },
