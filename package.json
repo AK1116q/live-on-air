@@ -1,6 +1,6 @@
 {
   "name": "live-on-air",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Local browser extension for Bilibili and Douyu live stream alerts",
   "type": "commonjs",
