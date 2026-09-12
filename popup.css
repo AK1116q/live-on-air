@@ -1,5 +1,6 @@
 :root {
   color-scheme: light dark;
+  --popup-width: 390px;
   --bg: #f3f5ef;
   --surface: #fffdf7;
   --text: #18201b;
@@ -19,17 +20,16 @@
   box-sizing: border-box;
 }
 html {
-  width: 390px;
-  max-width: 100vw;
+  width: var(--popup-width);
+  min-width: var(--popup-width);
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-gutter: stable;
 }
 body {
   margin: 0;
-  width: 390px;
-  max-width: 100vw;
-  min-width: 0;
+  width: var(--popup-width);
+  min-width: var(--popup-width);
   overflow-x: hidden;
   overscroll-behavior: contain;
   color: var(--text);
@@ -38,8 +38,8 @@ body {
     linear-gradient(145deg, var(--bg), #e6f0eb);
 }
 main {
-  width: 100%;
-  padding: 24px;
+  width: var(--popup-width);
+  padding: 22px;
 }
 header {
   display: flex;
@@ -252,10 +252,6 @@ footer {
   }
 }
 @media (max-width: 520px) {
-  html,
-  body {
-    width: 100vw;
-  }
   main {
     padding: 18px;
   }

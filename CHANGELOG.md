@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 - 2026-09-12
+
+- Fixed an Edge popup regression where the extension could collapse into a thin scrollbar strip.
+- Replaced viewport-width popup sizing with a fixed extension window width.
+- Added a CSS regression test so popup sizing does not reintroduce viewport-width rules.
+
 ## 0.1.1 - 2026-09-12
 
 - Stabilized the Edge and Chrome popup width to prevent visible shaking when the popup opens.

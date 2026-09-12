@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Live On Air · Stream Alerts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Get desktop and optional phone alerts when Bilibili or Douyu rooms go live.",
   "permissions": ["alarms", "notifications", "storage"],
   "icons": { "128": "icon.png" },
