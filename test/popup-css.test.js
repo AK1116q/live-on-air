@@ -7,6 +7,7 @@ const css = fs.readFileSync(path.join(__dirname, "../popup.css"), "utf8");
 
 test("popup CSS keeps a stable browser-extension width", () => {
   assert.match(css, /--popup-width:\s*390px/);
+  assert.match(css, /--popup-height:\s*600px/);
   assert.match(css, /width:\s*var\(--popup-width\)/);
   assert.match(css, /min-width:\s*var\(--popup-width\)/);
 });
@@ -14,4 +15,10 @@ test("popup CSS keeps a stable browser-extension width", () => {
 test("popup CSS avoids viewport-width sizing that can collapse Edge popups", () => {
   assert.doesNotMatch(css, /100vw/);
   assert.doesNotMatch(css, /max-width:\s*100vw/);
+});
+
+test("popup CSS uses an internal scrolling shell for mouse-wheel scrolling", () => {
+  assert.match(css, /\.scroll-shell\s*{/);
+  assert.match(css, /overflow-y:\s*auto/);
+  assert.match(css, /height:\s*calc\(var\(--popup-height\) - 114px\)/);
 });

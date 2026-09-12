@@ -34,9 +34,9 @@ test("parses supported Bilibili and Douyu room inputs", () => {
   });
 });
 test("rejects empty, unknown, and vanity rooms", () => {
-  assert.throws(() => LiveOnAir.parseRoom("", "douyu"), /Enter/);
-  assert.throws(() => LiveOnAir.parseRoom("room-name", "douyu"), /numeric/);
-  assert.throws(() => LiveOnAir.parseRoom("42", "other"), /Choose/);
+  assert.throws(() => LiveOnAir.parseRoom("", "douyu"), /请输入/);
+  assert.throws(() => LiveOnAir.parseRoom("room-name", "douyu"), /数字房间/);
+  assert.throws(() => LiveOnAir.parseRoom("42", "other"), /请选择/);
 });
 test("normalizes settings and strips unsafe ntfy topic characters", () => {
   assert.deepEqual(plain(LiveOnAir.normalizeSettings({})), {
@@ -85,7 +85,7 @@ test("provider errors are clear", async () => {
     LiveOnAir.checkRoom({ platform: "douyu", roomId: "1" }, async () =>
       response("<html></html>"),
     ),
-    /non-JSON/,
+    /无法解析/,
   );
   await assert.rejects(
     LiveOnAir.checkRoom({ platform: "bilibili", roomId: "1" }, async () =>
@@ -99,7 +99,7 @@ test("notification text uses labels and platform links", () => {
     { platform: "douyu", roomId: "9999", label: "YYF" },
     { title: "Rank games", owner: "yyf", url: "https://www.douyu.com/9999" },
   );
-  assert.equal(text.title, "YYF is live");
+  assert.equal(text.title, "YYF 开播了");
   assert.ok(text.message.includes("Rank games"));
   assert.equal(text.url, "https://www.douyu.com/9999");
 });

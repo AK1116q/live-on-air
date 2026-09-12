@@ -2,14 +2,14 @@
   "use strict";
   const PLATFORMS = {
     bilibili: {
-      name: "Bilibili",
+      name: "哔哩哔哩",
       accent: "#fb7299",
       url(roomId) {
         return `https://live.bilibili.com/${roomId}`;
       },
     },
     douyu: {
-      name: "Douyu",
+      name: "斗鱼",
       accent: "#ff6a18",
       url(roomId) {
         return `https://www.douyu.com/${roomId}`;
@@ -24,7 +24,7 @@
   }
   function parseRoom(input, platformHint = "") {
     const value = String(input || "").trim();
-    if (!value) throw new Error("Enter a live room URL or room ID.");
+    if (!value) throw new Error("请输入直播房间链接或房间 ID。");
     let platform = platformHint;
     let roomId = value;
     try {
@@ -35,9 +35,8 @@
       if (host.includes("douyu.com")) platform = "douyu";
       roomId = first;
     } catch {}
-    if (!PLATFORMS[platform]) throw new Error("Choose Bilibili or Douyu.");
-    if (!/^\d{1,12}$/.test(roomId))
-      throw new Error("Only numeric room IDs are supported.");
+    if (!PLATFORMS[platform]) throw new Error("请选择哔哩哔哩或斗鱼。");
+    if (!/^\d{1,12}$/.test(roomId)) throw new Error("目前只支持数字房间 ID。");
     return { platform, roomId };
   }
   function normalizeSettings(value = {}) {
@@ -55,8 +54,7 @@
     };
   }
   function normalizeSubscription(value) {
-    if (!value || typeof value !== "object")
-      throw new Error("Invalid subscription.");
+    if (!value || typeof value !== "object") throw new Error("订阅数据无效。");
     const parsed = parseRoom(value.roomId, value.platform);
     return {
       id: /^[a-zA-Z0-9-]{1,80}$/.test(String(value.id || ""))
@@ -92,7 +90,7 @@
     try {
       return JSON.parse(text.replace(/^\uFEFF/, ""));
     } catch {
-      throw new Error("The platform returned non-JSON content.");
+      throw new Error("平台返回了无法解析的数据。");
     }
   }
   async function checkBilibili(roomId, fetchImpl) {
@@ -102,10 +100,10 @@
       fetchImpl,
     );
     if (data.code !== 0 || !data.data)
-      throw new Error(data.message || "Bilibili room lookup failed.");
+      throw new Error(data.message || "哔哩哔哩房间查询失败。");
     return {
       live: Number(data.data.live_status) === 1,
-      title: String(data.data.title || "Untitled live room"),
+      title: String(data.data.title || "未命名直播间"),
       owner: String(data.data.uname || data.data.uid || ""),
       url: PLATFORMS.bilibili.url(roomId),
     };
@@ -116,12 +114,12 @@
       {},
       fetchImpl,
     );
-    if (!data.room) throw new Error("Douyu room lookup failed.");
+    if (!data.room) throw new Error("斗鱼房间查询失败。");
     return {
       live:
         Number(data.room.show_status) === 1 ||
         Number(data.room.room_status) === 1,
-      title: String(data.room.room_name || "Untitled live room"),
+      title: String(data.room.room_name || "未命名直播间"),
       owner: String(data.room.owner_name || ""),
       url: PLATFORMS.douyu.url(roomId),
     };
@@ -131,14 +129,14 @@
     if (item.platform === "bilibili")
       return checkBilibili(item.roomId, fetchImpl);
     if (item.platform === "douyu") return checkDouyu(item.roomId, fetchImpl);
-    throw new Error("Unsupported platform.");
+    throw new Error("不支持的平台。");
   }
   function buildNotification(subscription, status) {
     const name = roomName(subscription);
-    const title = `${name} is live`;
+    const title = `${name} 开播了`;
     const message = status.title
-      ? `${status.title}${status.owner ? ` by ${status.owner}` : ""}`
-      : "Open the room to watch.";
+      ? `${status.title}${status.owner ? ` · ${status.owner}` : ""}`
+      : "打开房间观看直播。";
     return { title, message, url: status.url };
   }
   root.LiveOnAir = {

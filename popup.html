@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -12,58 +12,64 @@
   </head>
   <body>
     <main>
-      <header>
+      <header class="app-header">
         <div>
-          <span class="eyebrow">Live monitor</span>
-          <h1>Live On Air</h1>
+          <span class="eyebrow">直播监控</span>
+          <h1>开播提醒</h1>
         </div>
-        <button id="check" class="secondary">Check now</button>
+        <button id="check" class="secondary">立即检查</button>
       </header>
-      <section class="panel">
-        <form id="add">
+      <div class="scroll-shell">
+        <section class="panel">
+          <form id="add">
+            <label>
+              平台
+              <select id="platform">
+                <option value="bilibili">哔哩哔哩</option>
+                <option value="douyu">斗鱼</option>
+              </select>
+            </label>
+            <label class="wide">
+              房间链接或 ID
+              <input id="room" placeholder="https://live.bilibili.com/6" />
+            </label>
+            <label class="wide">
+              显示名称
+              <input
+                id="label"
+                placeholder="可选，例如：喜欢的主播"
+                maxlength="80"
+              />
+            </label>
+            <button>添加房间</button>
+          </form>
+        </section>
+        <section class="settings panel">
           <label>
-            Platform
-            <select id="platform">
-              <option value="bilibili">Bilibili</option>
-              <option value="douyu">Douyu</option>
-            </select>
+            检查间隔，分钟
+            <input id="interval" type="number" min="1" max="120" step="1" />
+          </label>
+          <label class="check">
+            <input id="desktop" type="checkbox" />
+            桌面提醒
+          </label>
+          <label class="check">
+            <input id="phone" type="checkbox" />
+            手机提醒，通过 ntfy
           </label>
           <label class="wide">
-            Room URL or ID
-            <input id="room" placeholder="https://live.bilibili.com/6" />
+            ntfy 主题
+            <input id="topic" placeholder="例如 ak-live-alerts" />
           </label>
-          <label class="wide">
-            Display name
-            <input id="label" placeholder="Optional" maxlength="80" />
-          </label>
-          <button>Add room</button>
-        </form>
-      </section>
-      <section class="settings panel">
-        <label>
-          Poll every
-          <input id="interval" type="number" min="1" max="120" step="1" />
-        </label>
-        <label class="check">
-          <input id="desktop" type="checkbox" />
-          Desktop alerts
-        </label>
-        <label class="check">
-          <input id="phone" type="checkbox" />
-          Phone alerts through ntfy
-        </label>
-        <label class="wide">
-          ntfy topic
-          <input id="topic" placeholder="for example ak-live-alerts" />
-        </label>
-        <button id="save" type="button">Save settings</button>
-        <button id="test-phone" type="button" class="secondary">
-          Test phone
-        </button>
-      </section>
-      <p id="status" role="status" aria-live="polite"></p>
-      <section id="list" class="rooms"></section>
-      <footer>Local desktop alerts. Optional phone alerts use ntfy.sh.</footer>
+          <button id="save" type="button">保存设置</button>
+          <button id="test-phone" type="button" class="secondary">
+            测试手机
+          </button>
+        </section>
+        <p id="status" role="status" aria-live="polite"></p>
+        <section id="list" class="rooms"></section>
+        <footer>本地桌面提醒。手机提醒可选，需要使用 ntfy.sh。</footer>
+      </div>
     </main>
     <script src="core.js"></script>
     <script src="popup.js"></script>

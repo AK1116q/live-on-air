@@ -5,7 +5,7 @@ function status(text) {
 }
 async function send(message) {
   const result = await chrome.runtime.sendMessage(message);
-  if (!result?.ok) throw new Error(result?.error || "Extension is not ready.");
+  if (!result?.ok) throw new Error(result?.error || "扩展还没有准备好。");
   return result.data;
 }
 function applySettings(settings) {
@@ -20,7 +20,7 @@ function render() {
   if (!state.subscriptions.length) {
     const empty = document.createElement("p");
     empty.className = "empty";
-    empty.textContent = "Add a Bilibili or Douyu room to start watching.";
+    empty.textContent = "添加哔哩哔哩或斗鱼房间后，就可以开始监控开播状态。";
     $("list").append(empty);
     return;
   }
@@ -40,8 +40,8 @@ function render() {
     meta.className = "meta";
     const checked = item.lastCheckedAt
       ? new Date(item.lastCheckedAt).toLocaleString()
-      : "not checked yet";
-    meta.textContent = `${item.roomId} | ${item.lastTitle || "No title yet"} | ${checked}`;
+      : "还没有检查";
+    meta.textContent = `${item.roomId} · ${item.lastTitle || "暂无标题"} · ${checked}`;
     const stateText = document.createElement("p");
     stateText.className = item.lastError
       ? "error"
@@ -51,26 +51,26 @@ function render() {
     stateText.textContent = item.lastError
       ? item.lastError
       : item.lastLive
-        ? "Live now"
-        : "Offline";
+        ? "正在直播"
+        : "未开播";
     const actions = document.createElement("div");
     actions.className = "room-actions";
     const open = document.createElement("a");
     open.href = LiveOnAir.PLATFORMS[item.platform].url(item.roomId);
     open.target = "_blank";
     open.rel = "noopener noreferrer";
-    open.textContent = "Open room";
+    open.textContent = "打开房间";
     const right = document.createElement("div");
     const toggle = document.createElement("button");
     toggle.className = "secondary";
-    toggle.textContent = item.enabled ? "Pause" : "Resume";
+    toggle.textContent = item.enabled ? "暂停" : "恢复";
     toggle.onclick = async () => {
       await send({ type: "toggle", id: item.id });
       await refresh();
     };
     const remove = document.createElement("button");
     remove.className = "secondary";
-    remove.textContent = "Remove";
+    remove.textContent = "删除";
     remove.onclick = async () => {
       await send({ type: "remove", id: item.id });
       await refresh();
@@ -85,14 +85,12 @@ function render() {
 async function refresh() {
   state = await send({ type: "list" });
   render();
-  status(
-    `${state.subscriptions.length} room${state.subscriptions.length === 1 ? "" : "s"} watched.`,
-  );
+  status(`正在监控 ${state.subscriptions.length} 个房间。`);
 }
 $("add").onsubmit = async (event) => {
   event.preventDefault();
   try {
-    status("Checking room before adding...");
+    status("正在添加前检查房间...");
     await send({
       type: "add",
       platform: $("platform").value,
@@ -116,7 +114,7 @@ $("save").onclick = async () => {
     });
     state = await send({ type: "settings", settings });
     render();
-    status("Settings saved.");
+    status("设置已保存。");
   } catch (error) {
     status(error.message);
   }
@@ -124,7 +122,7 @@ $("save").onclick = async () => {
 $("check").onclick = async () => {
   try {
     $("check").disabled = true;
-    status("Checking rooms...");
+    status("正在检查房间...");
     await send({ type: "checkNow" });
     await refresh();
   } catch (error) {
@@ -135,9 +133,9 @@ $("check").onclick = async () => {
 };
 $("test-phone").onclick = async () => {
   try {
-    status("Sending test phone alert...");
+    status("正在发送手机测试提醒...");
     await send({ type: "testPhone" });
-    status("Phone test sent.");
+    status("手机测试提醒已发送。");
   } catch (error) {
     status(error.message);
   }

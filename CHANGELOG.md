@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3 - 2026-09-12
+
+- Switched the extension popup interface to Chinese.
+- Changed popup scrolling to an internal scroll container so mouse-wheel scrolling works reliably in Edge.
+- Refined the visual style with softer rounded rectangles and cleaner card surfaces.
+
 ## 0.1.2 - 2026-09-12
 
 - Fixed an Edge popup regression where the extension could collapse into a thin scrollbar strip.
